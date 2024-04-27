@@ -4,12 +4,14 @@ import {
   Outlet,
   Scripts,
 } from "@remix-run/react";
-
 import type { LinksFunction } from "@remix-run/node";
-import applyStylesHref from "./app.css?url"
+
+import appStyles from "./styles/app.css?url"
+import tailwindStyles from "./styles/tailwind.css?url"
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: applyStylesHref },
+  { rel: "stylesheet", href: tailwindStyles },
+  { rel: "stylesheet", href: appStyles },
 ]
 
 export default function App() {
