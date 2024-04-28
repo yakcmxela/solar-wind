@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { ActionFunctionArgs } from "@remix-run/node";
 import { Form, redirect } from "@remix-run/react";
 
-import { Select } from "@/ui/forms/Select";
-import { useState } from "react";
-import { Input } from "@/ui/forms/Input";
-import { Button } from "@/ui/buttons/Button";
+import { Select } from "~ui/forms/Select";
+import { Input } from "~ui/forms/Input";
+import { Button } from "~ui/buttons/Button";
+import { Card } from "../ui/cards/Card";
 
 export async function action({ request }: ActionFunctionArgs) {
   const body = await request.formData();
@@ -28,40 +29,48 @@ export default function Index() {
   };
 
   return (
-    <main>
-      <h1 className="text-3xl my-4">Let's get some weather data</h1>
-      <Select
-        className="my-2"
-        onChange={onChangeQueryType}
-        options={[
-          { id: QueryType.MAC, value: QueryType.MAC, label: "MAC Address" },
-          { id: QueryType.ZIP, value: QueryType.ZIP, label: "Zip Code" },
-        ]}
-      />
-      <Form className="flex flex-col items-start" method="post">
-        {queryType === QueryType.MAC ? (
-          <Input
-            className="my-2"
-            label="Enter your station's MAC address:"
-            labelType="above"
-            type="text"
-            placeholder="00:11:22:33:44:55"
-            name={queryType}
-          />
-        ) : (
-          <Input
-            className="my-2"
-            label="Enter your zip code:"
-            labelType="above"
-            type="text"
-            placeholder="12345"
-            name={queryType}
-          />
-        )}
-        <Button className="my-2" type="submit">
-          Search
-        </Button>
-      </Form>
+    <main className="flex flex-col items-center justify-center min-h-[100vh]">
+      <h1 className="text-4xl font-bold text-center my-8">Solar &amp; Wind Estimator</h1>
+      <Card className="w-[500px] mx-auto flex flex-col items-center text-center">
+        <p className="my-4">
+          Either enter your Ambient Weather Network station's MAC address, or
+          provide a postal code.
+        </p>
+        <Select
+          className="my-2 w-full"
+          onChange={onChangeQueryType}
+          options={[
+            { id: QueryType.MAC, value: QueryType.MAC, label: "MAC Address" },
+            { id: QueryType.ZIP, value: QueryType.ZIP, label: "Zip Code" },
+          ]}
+        />
+        <Form className="flex flex-col items-start w-full" method="post">
+          {queryType === QueryType.MAC ? (
+            <Input
+              className="my-2 w-full"
+              label="Enter your station's MAC address:"
+              labelStyle="w-full"
+              labelType="hidden"
+              type="text"
+              placeholder="00:11:22:33:44:55"
+              name={queryType}
+            />
+          ) : (
+            <Input
+              className="my-2 w-full"
+              label="Enter your zip code:"
+              labelStyle="w-full"
+              labelType="hidden"
+              type="text"
+              placeholder="12345"
+              name={queryType}
+            />
+          )}
+          <Button className="my-2 w-full" type="submit">
+            Search
+          </Button>
+        </Form>
+      </Card>
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import prisma from '~/services/prismaClient';
+import prisma from '~services/prismaClient';
 
 export interface SolarData {
     solarradiation: number;
