@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id       String   @id @default(uuid()) @db.Char(36)
+  zipcode  String   @unique @db.VarChar(10)
+  // Relationships
+  Weathers WeatherLocation[]
+
+  @@map("locations") // Maps to the actual table name in the database
+}
+
+model Weather {
+  id              String            @id @default(uuid()) @db.Char(36)
+  dateutc         BigInt
+  tempf           Float
+  humidity        Int
+  windspeedmph    Float
+  windgustmph     Float
+  maxdailygust    Float
+  winddir         Int
+  uv              Int
+  solarradiation  Float
+  hourlyrainin    Float
+  eventrainin     Float
+  dailyrainin     Float
+  weeklyrainin    Float
+  monthlyrainin   Float
+  totalrainin     Float
+  battout         Int
+  tempinf         Float
+  humidityin      Int
+  baromrelin      Float
+  baromabsin      Float
+  feelsLike       Float
+  dewPoint        Float
+  feelsLikein     Float
+  dewPointin      Float
+  lastRain        DateTime          @db.DateTime(3)
+  date            DateTime          @db.DateTime(3)
+  // Relationships
+  Locations       WeatherLocation[]
+
+  @@map("weather") // Maps to the actual table name in the database
+}
+
+model WeatherLocation {
+  weatherId   String   @db.Char(36)
+  locationId  String   @db.Char(36)
+  Weather     Weather  @relation(fields: [weatherId], references: [id])
+  Location    Location @relation(fields: [locationId], references: [id])
+
+  @@id([weatherId, locationId])
+  @@map("weatherlocations") // Maps to the actual table name in the database
+}
