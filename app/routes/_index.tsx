@@ -29,7 +29,7 @@ export default function Index() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-[100vh]">
+    <main className="container flex flex-col items-center justify-center min-h-[100vh]">
       <h1 className="text-4xl font-bold text-center my-8">Solar &amp; Wind Estimator</h1>
       <Card className="w-[500px] mx-auto flex flex-col items-center text-center">
         <p className="my-4">

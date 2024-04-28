@@ -14,7 +14,7 @@ export const Input = ({
       ? "invisible absolute z-[-1]"
       : "";
   return (
-    <label className={labelStyle}>
+    <label className={`relative ${labelStyle}`}>
       <span className={`${styles} ${labelStyle}`}>{label}</span>
       <input
         {...props}
