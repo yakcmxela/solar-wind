@@ -1,14 +1,16 @@
-import prisma from '~/services/prismaClient';
+"use server";
+
+import prisma from "~services/prismaClient";
 
 export interface SolarData {
-    solarradiation: number;
-    uv: number;
-    date: Date;
-    zipcode: string;
+  solarradiation: number;
+  uv: number;
+  date: string;
+  zipcode: string;
 }
 
 export async function getSolarData(zip: string): Promise<SolarData | null> {
-    const result = await prisma.$queryRaw<SolarData[]>`
+  const result = await prisma.$queryRaw<SolarData[]>`
         SELECT 
             AVG(solarradiation) AS solarradiation, AVG(uv) AS uv, MAX(DATE) AS date, zipcode
         FROM weather w
@@ -18,5 +20,5 @@ export async function getSolarData(zip: string): Promise<SolarData | null> {
             l.zipcode = ${zip}
         GROUP BY l.zipcode`;
 
-    return result[0] || null;
+  return result[0] || null;
 }

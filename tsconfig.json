@@ -5,8 +5,9 @@
     "**/.server/**/*.ts",
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
-    "**/.client/**/*.tsx"
-, "vite-config.js"  ],
+    "**/.client/**/*.tsx",
+    "vite-config.js"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@remix-run/node", "vite/client"],
@@ -23,8 +24,17 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"],
-      "~/*": ["./*"]
+      "~context*": ["./app/context*"],
+      "~data*": ["./app/data*"],
+      "~hooks*": ["./app/hooks*"],
+      "~routes": ["./app/routes*"],
+      "~services*": ["./services*"],
+      "~styles*": ["./app/styles*"],
+      "~types*": ["./app/types*"],
+      "~ui*": ["./app/ui*"],
+      "~utils*": ["./app/utils*"],
+      "react": ["./node_modules/@types/react"],
+      "@turf/helpers": ["./node_modules/@turf/helpers/dist/js/index.d.ts"]
     },
 
     // Vite takes care of building everything, not tsc.

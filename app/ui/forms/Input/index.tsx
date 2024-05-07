@@ -14,11 +14,11 @@ export const Input = ({
       ? "invisible absolute z-[-1]"
       : "";
   return (
-    <label>
+    <label className={`relative ${labelStyle}`}>
       <span className={`${styles} ${labelStyle}`}>{label}</span>
       <input
         {...props}
-        className={`border border-slate-500 rounded p-2 ${props.className} `}
+        className={`border-2 border-slate-500 rounded p-2 ${props.className} `}
       />
     </label>
   );
