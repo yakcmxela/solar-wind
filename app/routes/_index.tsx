@@ -6,35 +6,34 @@ import { Select } from "~ui/forms/Select";
 import { Input } from "~ui/forms/Input";
 import { Button } from "~ui/buttons/Button";
 import { Card } from "../ui/cards/Card";
-import { SearchRequestType } from "~types/SearchRequestType";
+import { AddressPhysicalParts, AddressSearchType } from "~types/Address";
 import { MapAddressAutofill } from "~ui/maps/MapAddressAutofill";
-import { PhysicalAddressParts } from "~types/PhysicalAddress";
 
 export async function action({ request }: ActionFunctionArgs) {
   const body = await request.formData();
-  if (body.has(SearchRequestType.MAC)) {
-    return redirect(`/station/${body.get(SearchRequestType.MAC)}`);
+  if (body.has(AddressSearchType.MAC)) {
+    return redirect(`/station/${body.get(AddressSearchType.MAC)}`);
   } else {
     const params = new URLSearchParams({
-      street: body.get(PhysicalAddressParts.street) as string,
-      city: body.get(PhysicalAddressParts.city) as string,
-      state: body.get(PhysicalAddressParts.state) as string,
-      zipcode: body.get(PhysicalAddressParts.zipcode) as string,
-      country: body.get(PhysicalAddressParts.country) as string,
+      street: body.get(AddressPhysicalParts.street) as string,
+      city: body.get(AddressPhysicalParts.city) as string,
+      state: body.get(AddressPhysicalParts.state) as string,
+      zipcode: body.get(AddressPhysicalParts.zipcode) as string,
+      country: body.get(AddressPhysicalParts.country) as string,
     });
     return redirect(`/physical-address?${params.toString()}`);
   }
 }
 
 export default function Index() {
-  const [searchRequestType, setSearchRequestType] = useState<SearchRequestType>(
-    SearchRequestType.MAC
+  const [searchRequestType, setAddressSearchType] = useState<AddressSearchType>(
+    AddressSearchType.MAC
   );
 
-  const onChangeSearchRequestType = (
+  const onChangeAddressSearchType = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setSearchRequestType(e.target.value as SearchRequestType);
+    setAddressSearchType(e.target.value as AddressSearchType);
   };
 
   return (
@@ -49,22 +48,22 @@ export default function Index() {
         </p>
         <Select
           className="my-2 w-full"
-          onChange={onChangeSearchRequestType}
+          onChange={onChangeAddressSearchType}
           options={[
             {
-              id: SearchRequestType.MAC,
-              value: SearchRequestType.MAC,
-              label: SearchRequestType.MAC,
+              id: AddressSearchType.MAC,
+              value: AddressSearchType.MAC,
+              label: AddressSearchType.MAC,
             },
             {
-              id: SearchRequestType.Address,
-              value: SearchRequestType.Address,
-              label: SearchRequestType.Address,
+              id: AddressSearchType.Address,
+              value: AddressSearchType.Address,
+              label: AddressSearchType.Address,
             },
           ]}
         />
         <Form className="flex flex-col items-start w-full" method="post">
-          {searchRequestType === SearchRequestType.MAC ? (
+          {searchRequestType === AddressSearchType.MAC ? (
             <Input
               className="my-2 w-full"
               label="Enter your station's MAC address:"
@@ -72,7 +71,7 @@ export default function Index() {
               labelType="hidden"
               type="text"
               placeholder="00:11:22:33:44:55"
-              name={SearchRequestType.MAC}
+              name={AddressSearchType.MAC}
             />
           ) : (
             <MapAddressAutofill />

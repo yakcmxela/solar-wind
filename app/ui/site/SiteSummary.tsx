@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "~context/AppContext";
-import { PhysicalAddressParts } from "~types/PhysicalAddress";
+import { AddressPhysicalParts } from "~types/Address";
 
 export const SiteSummary = () => {
   const mapContext = useContext(AppContext);
@@ -11,23 +11,23 @@ export const SiteSummary = () => {
         <ul>
           <li className="text-sm">
             <strong>Country:</strong>{" "}
-            {physicalAddress[PhysicalAddressParts.country]}
+            {physicalAddress[AddressPhysicalParts.country]}
           </li>
           <li className="text-sm">
             <strong>Zip Code: </strong>
-            {physicalAddress[PhysicalAddressParts.zipcode]}
+            {physicalAddress[AddressPhysicalParts.zipcode]}
           </li>
           <li className="text-sm">
             <strong>State: </strong>
-            {physicalAddress[PhysicalAddressParts.state]}
+            {physicalAddress[AddressPhysicalParts.state]}
           </li>
           <li className="text-sm">
             <strong>City: </strong>
-            {physicalAddress[PhysicalAddressParts.city]}
+            {physicalAddress[AddressPhysicalParts.city]}
           </li>
           <li className="text-sm">
             <strong>Street Address: </strong>
-            {physicalAddress[PhysicalAddressParts.street]}
+            {physicalAddress[AddressPhysicalParts.street]}
           </li>
         </ul>
       </div>

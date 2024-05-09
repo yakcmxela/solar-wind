@@ -6,7 +6,7 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import turfArea from "@turf/area";
 
 import { MapProps } from "./types";
-import { PhysicalAddressParts } from "~types/PhysicalAddress";
+import { AddressPhysicalParts } from "~types/Address";
 import { AppContext, AppDispatchContext } from "~context/AppContext";
 
 const mapboxGeocodeURL = "https://api.mapbox.com/search/geocode/v6/forward";
@@ -28,11 +28,11 @@ export const Map = ({ className }: MapProps) => {
   const geocode = useCallback(async () => {
     if (!physicalAddress) return;
     const params = new URLSearchParams({
-      street: physicalAddress[PhysicalAddressParts.street] ?? "",
-      city: physicalAddress[PhysicalAddressParts.city] ?? "",
-      state: physicalAddress[PhysicalAddressParts.state] ?? "",
-      postcode: physicalAddress[PhysicalAddressParts.zipcode] ?? "",
-      country: physicalAddress[PhysicalAddressParts.country] ?? "US",
+      street: physicalAddress[AddressPhysicalParts.street] ?? "",
+      city: physicalAddress[AddressPhysicalParts.city] ?? "",
+      state: physicalAddress[AddressPhysicalParts.state] ?? "",
+      postcode: physicalAddress[AddressPhysicalParts.zipcode] ?? "",
+      country: physicalAddress[AddressPhysicalParts.country] ?? "US",
       access_token: window.ENV.MAPBOX_TOKEN,
     });
 

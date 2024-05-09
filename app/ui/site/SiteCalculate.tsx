@@ -7,15 +7,21 @@ export const SiteCalculate = () => {
   const appContext = useContext(AppContext);
   const appDispatch = useContext(AppDispatchContext);
   return (
-    <>
-      {/* TODO: add Incentive categories as multi select and update context */}
+    <div className="flex gap-2">
       <Button
-        className="mt-auto disabled:opacity-50"
+        className="flex-grow disabled:opacity-50"
         disabled={appContext.area === undefined}
-        onClick={appDispatch.onEstimate}
+        onClick={appDispatch.onRequestEstimate}
       >
-        Estimate savings &amp; incentives
+        Estimate output
       </Button>
-    </>
+      <Button
+        disabled={(appContext.incentivesSelected || []).length === 0}
+        className="flex-grow disabled:opacity-50"
+        onClick={appDispatch.onRequestIncentives}
+      >
+        Get incentives
+      </Button>
+    </div>
   );
 };

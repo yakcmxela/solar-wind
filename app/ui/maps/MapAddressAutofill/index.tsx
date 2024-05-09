@@ -1,7 +1,7 @@
 "use client";
 
 import { lazy, Suspense, useState } from "react";
-import { PhysicalAddress } from "~types/PhysicalAddress";
+import { AddressPhysical } from "~types/Address";
 import { Input } from "~ui/forms/Input";
 
 const LazyAddressAutoFill = lazy(() =>
@@ -11,7 +11,7 @@ const LazyAddressAutoFill = lazy(() =>
 );
 
 export const MapAddressAutofill = () => {
-  const [address, setAddress] = useState<PhysicalAddress>();
+  const [address, setAddress] = useState<AddressPhysical>();
 
   return (
     <Suspense fallback={null}>
@@ -35,7 +35,7 @@ export const MapAddressAutofill = () => {
           // Inlining the function because module does not expose the type
           (res) => {
             const selected = res.features[0].properties;
-            const physicalAddress: PhysicalAddress = {
+            const physicalAddress: AddressPhysical = {
               street: selected.address_line1,
               city: selected.address_level2,
               zipcode: selected.postcode,

@@ -1,19 +1,19 @@
 import { Link } from "@remix-run/react";
 
 import { Card } from "~ui/cards/Card";
-import { Incentive } from "~types/IncentivesResponse";
 import { LoadingCard } from "~ui/loading/LoadingCard";
+import { Incentive, IncentiveCategory } from "~types/Incentives";
 
 export const IncentivesItem = ({
   color,
-  incentives,
-  category,
+  found,
+  selected,
   isError,
   isLoading,
 }: {
   color: string;
-  incentives?: Incentive[];
-  category: string;
+  found?: Incentive[];
+  selected: IncentiveCategory;
   isError: boolean;
   isLoading: boolean;
 }) => {
@@ -21,21 +21,21 @@ export const IncentivesItem = ({
     <Card className="min-h-[300px] flex flex-col">
       {isLoading && <LoadingCard text="Loading..." />}
       {isError ||
-        (!isError && incentives && incentives.length === 0 && (
+        (!isError && found && found.length === 0 && (
           <>
             <h2 className="text-2xl font-bold mb-2">Sorry!</h2>
             <p className="text-sm">
-              We couldn't find any {category} data for your area!
+              We couldn't find any {selected.display_name} data for your area!
             </p>
           </>
         ))}
-      {(incentives || []).length > 0 && (
+      {(found || []).length > 0 && (
         <div>
           <h2 className="text-2xl font-bold mb-2 capitalize">
-            {category} incentives
+            {selected.display_name} incentives
           </h2>
           <ul>
-            {incentives!.map((incentive) => (
+            {found!.map((incentive) => (
               <li key={incentive.id}>
                 <h3 className="text-md mb-2 mt-4 font-bold">
                   {incentive.name}:

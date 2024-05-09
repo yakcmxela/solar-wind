@@ -1,16 +1,16 @@
 import { useContext } from "react";
 
-import { IncentiveCategory } from "~types/IncentiveCategory";
+import { IncentiveType } from "~types/Incentives";
 import { IncentivesItem } from "~ui/incentives/IncentivesItem";
 import { AppContext } from "~context/AppContext";
 
 const incentiveColors = {
-  [IncentiveCategory.ElectricVehicles]: "bg-green-50",
-  [IncentiveCategory.EnergyEfficiency]: "bg-slate-50",
-  [IncentiveCategory.Geothermal]: "bg-purple-50",
-  [IncentiveCategory.Other]: "bg-gray-50",
-  [IncentiveCategory.Solar]: "bg-yellow-50",
-  [IncentiveCategory.Wind]: "bg-blue-50",
+  [IncentiveType.ElectricVehicles]: "bg-green-50",
+  [IncentiveType.EnergyEfficiency]: "bg-slate-50",
+  [IncentiveType.Geothermal]: "bg-purple-50",
+  [IncentiveType.Other]: "bg-gray-50",
+  [IncentiveType.Solar]: "bg-yellow-50",
+  [IncentiveType.Wind]: "bg-blue-50",
 };
 
 export const IncentivesList = () => {
@@ -19,20 +19,20 @@ export const IncentivesList = () => {
   const {
     isEstimationError,
     isEstimating,
-    incentives = {},
-    incentiveCategories = [],
+    incentivesFound = {},
+    incentivesSelected = [],
   } = appContext;
 
-  if (!isEstimating && Object.keys(incentives).length === 0) {
+  if (!isEstimating && Object.keys(incentivesFound).length === 0) {
     return null;
   }
 
-  return incentiveCategories.map((category) => (
+  return incentivesSelected.map((incentive) => (
     <IncentivesItem
-      key={category}
-      color={incentiveColors[category]}
-      incentives={incentives[category as IncentiveCategory]}
-      category={category}
+      key={incentive.id}
+      color={incentiveColors[incentive.type]}
+      found={incentivesFound[incentive.type as IncentiveType]}
+      selected={incentive}
       isError={isEstimationError}
       isLoading={isEstimating}
     />
