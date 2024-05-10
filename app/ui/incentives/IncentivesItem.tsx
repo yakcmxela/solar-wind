@@ -1,34 +1,19 @@
 import { Link } from "@remix-run/react";
 
 import { Card } from "~ui/cards/Card";
-import { LoadingCard } from "~ui/loading/LoadingCard";
 import { Incentive, IncentiveCategory } from "~types/Incentives";
 
 export const IncentivesItem = ({
   color,
   found,
   selected,
-  isError,
-  isLoading,
 }: {
   color: string;
   found?: Incentive[];
   selected: IncentiveCategory;
-  isError: boolean;
-  isLoading: boolean;
 }) => {
   return (
     <Card className="min-h-[300px] flex flex-col">
-      {isLoading && <LoadingCard text="Loading..." />}
-      {isError ||
-        (!isError && found && found.length === 0 && (
-          <>
-            <h2 className="text-2xl font-bold mb-2">Sorry!</h2>
-            <p className="text-sm">
-              We couldn't find any {selected.display_name} data for your area!
-            </p>
-          </>
-        ))}
       {(found || []).length > 0 && (
         <div>
           <h2 className="text-2xl font-bold mb-2 capitalize">

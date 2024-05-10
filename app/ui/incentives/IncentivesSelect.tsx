@@ -1,33 +1,43 @@
 import { useContext } from "react";
+import {
+  IncentivesContext,
+  IncentivesDispatchContext,
+} from "~context/IncentivesContext";
+import { IncentiveCategory } from "~types/Incentives";
+import { Button } from "~ui/buttons/Button";
 
-import { AppContext, AppDispatchContext } from "~context/AppContext";
-
-export const IncentivesSelect = () => {
-  const appContext = useContext(AppContext);
-  const appDispatch = useContext(AppDispatchContext);
-
-  const { incentivesAll = [] } = appContext;
+export const IncentivesSelect = ({
+  incentives,
+}: {
+  incentives: IncentiveCategory[];
+}) => {
+  const appContext = useContext(IncentivesContext);
+  const appDispatch = useContext(IncentivesDispatchContext);
 
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-bold">Select all that apply:</h2>
-      <ul aria-multiselectable className="flex gap-2 flex-wrap">
-        {incentivesAll.map((incentive) => (
-          <li
-            key={`${incentive.id}-select`}
-            onClick={() => appDispatch.onChangeIncentives(incentive)}
-            className={`cursor-pointer capitalize text-sm py-2 px-4 rounded-full border border-green-300 ${
+    <ul
+      aria-multiselectable
+      className="flex flex-col gap-2 flex-wrap w-full text-center"
+    >
+      {incentives.map((incentive) => (
+        <li
+          className="w-full"
+          key={`${incentive.id}-select`}
+          onClick={() => appDispatch.onChangeIncentives(incentive)}
+        >
+          <Button
+            className={`capitalize px-8 w-full border-0 ${
               appContext.incentivesSelected
                 ?.map((i) => i.id)
                 .includes(incentive.id)
-                ? "bg-green-100"
-                : "bg-white"
+                ? "!bg-cyan-500"
+                : "bg-indigo-500"
             }`}
           >
             {incentive.display_name}
-          </li>
-        ))}
-      </ul>
-    </div>
+          </Button>
+        </li>
+      ))}
+    </ul>
   );
 };

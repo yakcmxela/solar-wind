@@ -1,6 +1,6 @@
 "use client";
 
-import { lazy, Suspense, useState } from "react";
+import { lazy, useState } from "react";
 import { AddressPhysical } from "~types/Address";
 import { Input } from "~ui/forms/Input";
 
@@ -14,7 +14,7 @@ export const MapAddressAutofill = () => {
   const [address, setAddress] = useState<AddressPhysical>();
 
   return (
-    <Suspense fallback={null}>
+    <>
       <style
         dangerouslySetInnerHTML={{
           __html: `mapbox-address-autofill { width: 100%; }`,
@@ -47,7 +47,7 @@ export const MapAddressAutofill = () => {
         }
       >
         <Input
-          className="my-2 w-full"
+          className="rounded-xl w-full"
           label="Enter your zip code:"
           labelStyle="w-full"
           labelType="hidden"
@@ -55,6 +55,6 @@ export const MapAddressAutofill = () => {
           placeholder="123 ABC St, City, State 12345"
         />
       </LazyAddressAutoFill>
-    </Suspense>
+    </>
   );
 };

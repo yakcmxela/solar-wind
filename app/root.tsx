@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { LinksFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 
+import appFonts from "~styles/fonts.css?url";
 import appStyles from "~styles/app.css?url";
 import tailwindStyles from "~styles/tailwind.css?url";
 import mapboxStyles from "mapbox-gl/dist/mapbox-gl.css?url";
@@ -17,6 +18,7 @@ declare global {
 const queryClient = new QueryClient();
 
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: appFonts },
   { rel: "stylesheet", href: tailwindStyles },
   { rel: "stylesheet", href: appStyles },
   { rel: "stylesheet", href: mapboxStyles },

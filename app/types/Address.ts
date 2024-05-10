@@ -16,5 +16,6 @@ export enum AddressPhysicalParts {
 
 export enum AddressSearchType {
   MAC = "Station MAC Address",
-  Address = "Physical Address",
+  Potential = "Potential",
+  Incentives = "Incentives",
 }

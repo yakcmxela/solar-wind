@@ -1,12 +1,15 @@
 import { InputHTMLAttributes } from "react";
-import { InputProps } from "./types";
 
 export const Input = ({
   label,
   labelType,
   labelStyle,
   ...props
-}: InputProps & InputHTMLAttributes<HTMLInputElement>) => {
+}: {
+  label?: string;
+  labelType?: "hidden" | "above" | "left";
+  labelStyle?: string;
+} & InputHTMLAttributes<HTMLInputElement>) => {
   const styles =
     labelType === "above"
       ? "block"
@@ -18,7 +21,7 @@ export const Input = ({
       <span className={`${styles} ${labelStyle}`}>{label}</span>
       <input
         {...props}
-        className={`border-2 border-slate-500 rounded p-2 ${props.className} `}
+        className={`rounded-xl p-3 text-sm ${props.className} `}
       />
     </label>
   );

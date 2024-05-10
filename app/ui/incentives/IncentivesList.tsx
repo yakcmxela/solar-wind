@@ -2,7 +2,9 @@ import { useContext } from "react";
 
 import { IncentiveType } from "~types/Incentives";
 import { IncentivesItem } from "~ui/incentives/IncentivesItem";
-import { AppContext } from "~context/AppContext";
+import { PotentialContext } from "~context/PotentialContext";
+import { IncentivesContext } from "~context/IncentivesContext";
+import { LoadingSpinner } from "~ui/loading/LoadingSpinner";
 
 const incentiveColors = {
   [IncentiveType.ElectricVehicles]: "bg-green-50",
@@ -14,27 +16,37 @@ const incentiveColors = {
 };
 
 export const IncentivesList = () => {
-  const appContext = useContext(AppContext);
+  const context = useContext(IncentivesContext);
 
   const {
-    isEstimationError,
-    isEstimating,
+    isSearching,
     incentivesFound = {},
     incentivesSelected = [],
-  } = appContext;
+  } = context;
 
-  if (!isEstimating && Object.keys(incentivesFound).length === 0) {
-    return null;
+  if (isSearching) {
+    return (
+      <div className="my-20 flex flex-col justify-center items-center">
+        <LoadingSpinner />
+        <p className="text-white font-bold my-4">Hang tight...</p>
+      </div>
+    );
   }
 
-  return incentivesSelected.map((incentive) => (
-    <IncentivesItem
-      key={incentive.id}
-      color={incentiveColors[incentive.type]}
-      found={incentivesFound[incentive.type as IncentiveType]}
-      selected={incentive}
-      isError={isEstimationError}
-      isLoading={isEstimating}
-    />
-  ));
+  return (
+    <ul className="flex flex-col gap-y-4 my-4">
+      {Object.keys(incentivesFound).map((key) => {
+        const incentives = incentivesFound[key as IncentiveType];
+        return (
+          <li key={`${key}-found`}>
+            <IncentivesItem
+              color={incentiveColors[key as IncentiveType]}
+              found={incentives}
+              selected={incentivesSelected.find((s) => s.type === key)!}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  );
 };

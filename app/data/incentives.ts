@@ -7,7 +7,7 @@ export async function getIncentives(
 ): Promise<string> {
   const params = new URLSearchParams({
     ...physicalAddress,
-    categories: incentiveCategories.join(","),
+    incentive_ids: incentiveCategories.map((c) => c.id).join(","),
   });
   const incentivesResonse = await fetch(
     `http://127.0.0.1:8000/incentives?${params.toString()}`,
