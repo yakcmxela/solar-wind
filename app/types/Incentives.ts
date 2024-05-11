@@ -2,9 +2,9 @@ export enum IncentiveType {
   Solar = "solar",
   Wind = "wind",
   Geothermal = "geothermal",
-  ElectricVehicles = "electric vehicles",
-  EnergyEfficiency = "energy efficiency",
-  Other = "other",
+  ElectricVehicles = "ev",
+  HomeEfficiency = "home",
+  Water = "water",
 }
 
 export type IncentiveCategory = {

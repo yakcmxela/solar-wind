@@ -41,7 +41,7 @@ export const IncentivesContextProvider = ({
     isFetching,
     refetch: onRequestIncentives,
   } = useQuery<string>({
-    queryKey: ["estimate"],
+    queryKey: ["incentives"],
     queryFn: () => getIncentives(incentivesSelected, physicalAddress),
     enabled: false,
     refetchOnWindowFocus: false,

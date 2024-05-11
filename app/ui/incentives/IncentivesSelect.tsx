@@ -11,23 +11,23 @@ export const IncentivesSelect = ({
 }: {
   incentives: IncentiveCategory[];
 }) => {
-  const appContext = useContext(IncentivesContext);
-  const appDispatch = useContext(IncentivesDispatchContext);
+  const context = useContext(IncentivesContext);
+  const dispatch = useContext(IncentivesDispatchContext);
 
   return (
     <ul
       aria-multiselectable
-      className="flex flex-col gap-2 flex-wrap w-full text-center"
+      className="no-scrollbar flex gap-2 md:flex-col md:flex-wrap w-full text-center overflow-scroll md:overflow-visible"
     >
       {incentives.map((incentive) => (
         <li
-          className="w-full"
+          className="md:w-full flex-shrink-0"
           key={`${incentive.id}-select`}
-          onClick={() => appDispatch.onChangeIncentives(incentive)}
+          onClick={() => dispatch.onChangeIncentives(incentive)}
         >
           <Button
             className={`capitalize px-8 w-full border-0 ${
-              appContext.incentivesSelected
+              context.incentivesSelected
                 ?.map((i) => i.id)
                 .includes(incentive.id)
                 ? "!bg-cyan-500"

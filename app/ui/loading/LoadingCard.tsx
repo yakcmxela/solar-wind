@@ -7,7 +7,7 @@ export const LoadingCard = ({
 }) => {
   return (
     <div
-      className={`flex flex-grow items-center justify-center rounded-lg bg-slate-300 animate-pulse ${
+      className={`flex flex-grow p-8 items-center justify-center rounded-lg bg-slate-300 animate-pulse ${
         className ?? ""
       }`}
     >

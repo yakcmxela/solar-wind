@@ -1,12 +1,10 @@
-import { Suspense } from "react";
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { Form, redirect, useLoaderData } from "@remix-run/react";
+import { Form, Link, redirect, useLoaderData } from "@remix-run/react";
 
 import { Button } from "~ui/buttons/Button";
 import { Card } from "../ui/cards/Card";
 import { AddressPhysicalParts } from "~types/Address";
-import { MapAddressAutofill } from "~ui/maps/MapAddressAutofill";
-import { Input } from "~ui/forms/Input";
+import { MapSearchBox } from "~ui/maps/MapSearchBox";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { searchParams } = new URL(request.url);
@@ -35,8 +33,8 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function Index() {
   const { error } = useLoaderData<typeof loader>();
   return (
-    <main className="container flex flex-col items-center justify-center min-h-[100vh]">
-      <div className="w-[500px] max-w-full">
+    <main className="container flex flex-col items-center justify-center min-h-[100vh] p-6">
+      <div className="w-[500px] max-w-full my-auto">
         <h1 className="text-3xl font-black text-center mb-4 text-white">
           Renewable Energy Assistant
         </h1>
@@ -59,25 +57,8 @@ export default function Index() {
           <p></p>
         </Card>
         <Form className="mt-4" method="post">
-          <Suspense
-            fallback={
-              <Input
-                className="w-full"
-                placeholder="123 ABC St, City, State 12345"
-              />
-            }
-          >
-            <MapAddressAutofill />
-          </Suspense>
+          <MapSearchBox />
           <div className="mt-4 flex gap-x-4">
-            <Button
-              className="w-full"
-              name="route"
-              value="potential"
-              type="submit"
-            >
-              Calculate Potential
-            </Button>
             <Button
               className="w-full"
               name="route"
@@ -86,6 +67,14 @@ export default function Index() {
             >
               Find Incentives
             </Button>
+            <Button
+              className="w-full"
+              name="route"
+              value="potential"
+              type="submit"
+            >
+              Calculate Potential
+            </Button>
           </div>
           {error && (
             <p className="text-center text-orange-400 text-white my-4">
@@ -93,6 +82,19 @@ export default function Index() {
             </p>
           )}
         </Form>
+      </div>
+      <div className="m-4 mt-auto text-center">
+        <p className="text-sm">An AI driven shopping experience.</p>
+        <p className="text-xs text-white">
+          Created by{" "}
+          <Link
+            className="text-orange-400"
+            to="https://github.com/yakcmxela"
+            target="_blank"
+          >
+            Alex McKay
+          </Link>
+        </p>
       </div>
     </main>
   );

@@ -9,6 +9,8 @@ export const PotentialEstimates = () => {
   const { isEstimating, estimatesFound, isEstimationError } =
     useContext(PotentialContext);
 
+  console.log({ isEstimating, estimatesFound, isEstimationError });
+
   useEffect(() => {
     if (!estimatesFound || !containerRef.current) return;
     Chart.register(...registerables);
@@ -44,19 +46,20 @@ export const PotentialEstimates = () => {
   }
 
   return (
-    <Card className="min-h-[300px] flex flex-col">
+    <>
       {isEstimating && <LoadingCard text="Loading..." />}
       {isEstimationError && (
         <>
-          <h2 className="text-2xl font-bold mb-2">Sorry!</h2>
-          <p className="text-sm">
+          <p className="text-sm text-orange-400 text-center">
             We couldn't find any power output data for your area!
           </p>
         </>
       )}
       {estimatesFound && (
-        <canvas ref={containerRef} className="w-full h-[300px]" />
+        <Card className="min-h-[300px] flex flex-col mb-8">
+          <canvas ref={containerRef} className="w-full h-[300px]" />
+        </Card>
       )}
-    </Card>
+    </>
   );
 };

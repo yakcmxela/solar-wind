@@ -1,25 +1,50 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
-import { PotentialContext, PotentialDispatchContext } from "~context/PotentialContext";
+import {
+  PotentialContext,
+  PotentialDispatchContext,
+} from "~context/PotentialContext";
 import { Button } from "~ui/buttons/Button";
 
 export const PotentialCalculate = () => {
-  const appContext = useContext(PotentialContext);
-  const appDispatch = useContext(PotentialDispatchContext);
+  const context = useContext(PotentialContext);
+  const dispatch = useContext(PotentialDispatchContext);
+
+  const disabled = useMemo(() => {
+    if (
+      context.solarPanelArea !== undefined &&
+      !context.solarPanelSelected
+    ) {
+      return true;
+    }
+    if (
+      (context.windTurbineCount || 0) > 0 &&
+      !context.windTurbineSelected
+    ) {
+      return true;
+    }
+    if (
+      context.windTurbineCount === undefined &&
+      context.solarPanelArea === undefined
+    ) {
+      return true;
+    }
+
+    return false;
+  }, [
+    context.solarPanelArea,
+    context.solarPanelSelected,
+    context.windTurbineCount,
+    context.windTurbineSelected,
+  ]);
+
   return (
-    <div className="flex gap-2">
-      <Button
-        className="flex-grow disabled:opacity-50"
-        disabled={
-          (appContext.solarPanelArea === undefined &&
-            !appContext.solarPanelSelected) ||
-          (appContext.windTurbineCount === undefined &&
-            !appContext.windTurbineSelected)
-        }
-        onClick={appDispatch.onRequestEstimate}
-      >
-        Estimate output
-      </Button>
-    </div>
+    <Button
+      className="w-full sm:w-auto disabled:opacity-50"
+      disabled={disabled}
+      onClick={dispatch.onRequestEstimate}
+    >
+      Estimate output
+    </Button>
   );
 };

@@ -11,13 +11,13 @@ export const ProductsSelect = ({
   incentive: IncentiveCategory;
   products: Product[];
 }) => {
-  const appDispatch = useContext(PotentialDispatchContext);
+  const dispatch = useContext(PotentialDispatchContext);
 
   const onChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const productId = event.target.value;
     const product = products.find((p) => p.id === productId);
     if (product) {
-      appDispatch.onChangeProduct(incentive, product);
+      dispatch.onChangeProduct(incentive, product);
     }
   };
 
@@ -27,7 +27,7 @@ export const ProductsSelect = ({
     <Select
       onChange={onChangeProduct}
       id={`${incentive}-products`}
-      className="full text-sm"
+      className="w-full sm:w-auto text-sm"
       label={`Select a ${incentive.display_name} product`}
       defaultOption={{
         id: "",

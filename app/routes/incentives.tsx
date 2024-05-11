@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 
 import { AddressPhysical, AddressPhysicalParts } from "~types/Address";
 import { Card } from "~ui/cards/Card";
@@ -51,24 +51,28 @@ export default function SearchByLocation() {
   return (
     <IncentivesContextProvider physicalAddress={physicalAddress}>
       <main>
-        <article className="min-h-[100vh] container max-w-[900px] mx-auto pt-4">
-          <section className="flex flex-col items-center justify-center my-8">
+        <article className="min-h-[100vh] container max-w-[900px] mx-auto p-6">
+          <section className="flex flex-col items-center justify-center my-6">
             <h1 className="text-white text-4xl font-black my-4">Incentives</h1>
             <p className="text-white text-center max-w-[500px]">
               Let us know how you'd like to fight climate change, and we'll see
-              what incentives exist for your area!
+              what incentives exist for you!
             </p>
+            <Link to="/" className="my-2 flex items-center text-orange-400">
+              &larr; Start over
+            </Link>
           </section>
-
-          <div className="flex gap-4 w-full">
+          <section className="flex flex-col-reverse md:flex-row gap-4 w-full">
             <div className="flex-shrink-0 flex flex-col">
               <IncentivesSelect incentives={incentives} />
-              <IncentivesSearch className="mt-auto" />
+              <div className="mt-auto">
+                <IncentivesSearch className="mt-8" />
+              </div>
             </div>
-            <Card className="flex-grow flex !p-0 h-[40dvh] flex-shrink-0">
+            <Card className="flex-grow h-[300px] md:h-auto flex !p-0 flex-shrink-0">
               <MapBasic zoom={6} physicalAddress={physicalAddress} />
             </Card>
-          </div>
+          </section>
           <IncentivesList />
         </article>
       </main>

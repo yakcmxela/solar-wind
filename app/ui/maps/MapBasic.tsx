@@ -27,8 +27,8 @@ export const MapBasic = ({
     if (!physicalAddress) return;
     const params = new URLSearchParams({
       street: physicalAddress[AddressPhysicalParts.street] ?? "",
-      city: physicalAddress[AddressPhysicalParts.city] ?? "",
-      state: physicalAddress[AddressPhysicalParts.state] ?? "",
+      place: physicalAddress[AddressPhysicalParts.city] ?? "",
+      region: physicalAddress[AddressPhysicalParts.state] ?? "",
       postcode: physicalAddress[AddressPhysicalParts.zipcode] ?? "",
       country: physicalAddress[AddressPhysicalParts.country] ?? "US",
       access_token: window.ENV.MAPBOX_TOKEN,

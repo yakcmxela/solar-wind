@@ -1,14 +1,21 @@
 import { Link } from "@remix-run/react";
 
 import { Card } from "~ui/cards/Card";
-import { Incentive, IncentiveCategory } from "~types/Incentives";
+import { Incentive, IncentiveCategory, IncentiveType } from "~types/Incentives";
+
+const incentiveColors = {
+  [IncentiveType.ElectricVehicles]: "bg-green-50",
+  [IncentiveType.HomeEfficiency]: "bg-slate-50",
+  [IncentiveType.Geothermal]: "bg-purple-50",
+  [IncentiveType.Water]: "bg-blue-50",
+  [IncentiveType.Solar]: "bg-yellow-50",
+  [IncentiveType.Wind]: "bg-cyan-50",
+};
 
 export const IncentivesItem = ({
-  color,
   found,
   selected,
 }: {
-  color: string;
   found?: Incentive[];
   selected: IncentiveCategory;
 }) => {
@@ -25,7 +32,11 @@ export const IncentivesItem = ({
                 <h3 className="text-md mb-2 mt-4 font-bold">
                   {incentive.name}:
                 </h3>
-                <div className={`px-3 py-2 mb-2 rounded-lg shadow ${color}`}>
+                <div
+                  className={`px-3 py-2 mb-2 rounded-lg shadow ${
+                    incentiveColors[selected.type]
+                  }`}
+                >
                   <div>
                     <p className="text-sm mb-1">
                       <strong>Description</strong>

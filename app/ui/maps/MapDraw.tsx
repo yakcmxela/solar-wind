@@ -22,8 +22,8 @@ export const MapDraw = ({
   className?: string;
   physicalAddress: AddressPhysical;
 }) => {
-  const appContext = useContext(PotentialContext);
-  const appDispatchContext = useContext(PotentialDispatchContext);
+  const context = useContext(PotentialContext);
+  const dispatchContext = useContext(PotentialDispatchContext);
 
   const drawRef = useRef<MapboxDraw>();
   const markerRef = useRef<mapboxgl.Marker>();
@@ -37,8 +37,8 @@ export const MapDraw = ({
     if (!physicalAddress) return;
     const params = new URLSearchParams({
       street: physicalAddress[AddressPhysicalParts.street] ?? "",
-      city: physicalAddress[AddressPhysicalParts.city] ?? "",
-      state: physicalAddress[AddressPhysicalParts.state] ?? "",
+      place: physicalAddress[AddressPhysicalParts.city] ?? "",
+      region: physicalAddress[AddressPhysicalParts.state] ?? "",
       postcode: physicalAddress[AddressPhysicalParts.zipcode] ?? "",
       country: physicalAddress[AddressPhysicalParts.country] ?? "US",
       access_token: window.ENV.MAPBOX_TOKEN,
@@ -57,7 +57,7 @@ export const MapDraw = ({
     const [longitude, latitude] = feature.geometry.coordinates;
     setLng(longitude);
     setLat(latitude);
-    appDispatchContext.onChangeCoords([longitude, latitude]);
+    dispatchContext.onChangeCoords([longitude, latitude]);
   }, [physicalAddress]);
 
   const onDraw = () => {
@@ -76,8 +76,8 @@ export const MapDraw = ({
         features: data.features.filter((f) => f.geometry.type === "Point"),
       };
       const area = turfArea(polygons);
-      appDispatchContext.onChangeSolarPanelArea(area);
-      appDispatchContext.onChangeWindTurbineCount(points.features.length);
+      dispatchContext.onChangeSolarPanelArea(area);
+      dispatchContext.onChangeWindTurbineCount(points.features.length);
     }
   };
 
@@ -88,7 +88,7 @@ export const MapDraw = ({
     if (polygons) {
       polygons.forEach((p) => drawRef.current?.delete(`${p.id}`));
     }
-    appDispatchContext.onChangeSolarPanelArea(0);
+    dispatchContext.onChangeSolarPanelArea(0);
   };
 
   const onClearPoints = () => {
@@ -98,7 +98,7 @@ export const MapDraw = ({
     if (points) {
       points.forEach((p) => drawRef.current?.delete(`${p.id}`));
     }
-    appDispatchContext.onChangeWindTurbineCount(0);
+    dispatchContext.onChangeWindTurbineCount(0);
   };
 
   useEffect(() => {
@@ -142,14 +142,14 @@ export const MapDraw = ({
         <Card className="!p-3 flex items-center">
           <p className="text-sm mr-2">
             <strong>Panel area: </strong>
-            {appContext.solarPanelArea?.meters ?? 0} m²
+            {context.solarPanelArea?.meters ?? 0} m²
           </p>
           <ClearButton callback={onClearPolygons} />
         </Card>
         <Card className="!p-3 flex items-center">
           <p className="text-sm mr-2">
             <strong>Turbine count: </strong>
-            {appContext.windTurbineCount ?? 0}
+            {context.windTurbineCount ?? 0}
           </p>
           <ClearButton callback={onClearPoints} />
         </Card>
