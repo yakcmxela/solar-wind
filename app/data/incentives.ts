@@ -10,7 +10,7 @@ export async function getIncentives(
     incentive_ids: incentiveCategories.map((c) => c.id).join(","),
   });
   const incentivesResonse = await fetch(
-    `http://127.0.0.1:8000/incentives?${params.toString()}`,
+    `${process.env.API_URL}/incentives?${params.toString()}`,
     {
       method: "GET",
       headers: {
@@ -27,7 +27,7 @@ export async function getIncentives(
 
 export async function getIncentiveTypes(): Promise<IncentiveCategory[]> {
   const incentiveResponse = await fetch(
-    `http://127.0.0.1:8000/incentives/types`,
+    `${process.env.API_URL}/incentives/types`,
     {
       method: "GET",
       headers: {

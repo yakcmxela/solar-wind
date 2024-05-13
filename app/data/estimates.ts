@@ -22,7 +22,7 @@ export async function getEstimates(
     lng: req.lng.toString(),
   });
   const estimatesResponse = await fetch(
-    `http://127.0.0.1:8000/estimates?${params.toString()}`,
+    `${process.env.API_URL}/estimates?${params.toString()}`,
     {
       method: "GET",
       headers: {
