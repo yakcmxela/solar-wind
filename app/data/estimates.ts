@@ -23,13 +23,7 @@ export async function getEstimates(
     lng: req.lng.toString(),
   });
   const estimatesResponse = await fetch(
-    `${getEnv().API_URL}/estimates?${params.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+    `${getEnv().API_URL}/estimates?${params.toString()}`
   );
   if (estimatesResponse) {
     const estimate = await estimatesResponse.json();

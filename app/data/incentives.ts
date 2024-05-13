@@ -11,13 +11,7 @@ export async function getIncentives(
     incentive_ids: incentiveCategories.map((c) => c.id).join(","),
   });
   const incentivesResonse = await fetch(
-    `${getEnv().API_URL}/incentives?${params.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+    `${getEnv().API_URL}/incentives?${params.toString()}`
   );
   const incentives: { response: string } = await incentivesResonse.json();
   if (incentives.response) {
@@ -27,15 +21,7 @@ export async function getIncentives(
 }
 
 export async function getIncentiveTypes(): Promise<IncentiveCategory[]> {
-  const incentiveResponse = await fetch(
-    `${getEnv().API_URL}/incentives/types`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const incentiveResponse = await fetch(`${getEnv().API_URL}/incentives/types`);
   const incentiveTypes: { response: IncentiveCategory[] } =
     await incentiveResponse.json();
   if (incentiveTypes) {
