@@ -4,7 +4,6 @@ import { getIncentives } from "~data/incentives";
 
 import { Incentive, IncentiveCategory, IncentiveType } from "~types/Incentives";
 import { AddressPhysical } from "~types/Address";
-import { Product } from "~types/Products";
 
 export const IncentivesContext = createContext<{
   incentivesSelected?: IncentiveCategory[];

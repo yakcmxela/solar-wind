@@ -1,3 +1,4 @@
+import { getEnv } from "app/util/env";
 import { EstimatesResponse } from "~types/Estimates";
 import { Product } from "~types/Products";
 
@@ -22,7 +23,7 @@ export async function getEstimates(
     lng: req.lng.toString(),
   });
   const estimatesResponse = await fetch(
-    `${process.env.API_URL}/estimates?${params.toString()}`,
+    `${getEnv().API_URL}/estimates?${params.toString()}`,
     {
       method: "GET",
       headers: {

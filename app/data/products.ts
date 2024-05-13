@@ -1,8 +1,9 @@
+import { getEnv } from "app/util/env";
 import { Product } from "~types/Products";
 
 export const getProductByTypeID = async (id: string): Promise<Product[]> => {
   const solarPanelsResponse = await fetch(
-    `${process.env.API_URL}/products/type_id/${id}`,
+    `${getEnv().API_URL}/products/type_id/${id}`,
     {
       method: "GET",
       headers: {

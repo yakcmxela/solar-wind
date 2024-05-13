@@ -1,5 +1,6 @@
 import { IncentiveCategory } from "~types/Incentives";
 import { AddressPhysical } from "~types/Address";
+import { getEnv } from "app/util/env";
 
 export async function getIncentives(
   incentiveCategories: IncentiveCategory[],
@@ -10,7 +11,7 @@ export async function getIncentives(
     incentive_ids: incentiveCategories.map((c) => c.id).join(","),
   });
   const incentivesResonse = await fetch(
-    `${process.env.API_URL}/incentives?${params.toString()}`,
+    `${getEnv().API_URL}/incentives?${params.toString()}`,
     {
       method: "GET",
       headers: {
@@ -27,7 +28,7 @@ export async function getIncentives(
 
 export async function getIncentiveTypes(): Promise<IncentiveCategory[]> {
   const incentiveResponse = await fetch(
-    `${process.env.API_URL}/incentives/types`,
+    `${getEnv().API_URL}/incentives/types`,
     {
       method: "GET",
       headers: {
