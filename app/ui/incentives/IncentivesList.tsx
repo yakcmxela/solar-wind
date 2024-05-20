@@ -23,8 +23,6 @@ export const IncentivesList = () => {
     );
   }
 
-  console.log({incentivesFound})
-
   return (
     <ul className="flex flex-col gap-y-4 my-4">
       {Object.keys(incentivesFound).map((key) => {

@@ -58,9 +58,9 @@ export default function Index() {
         </Card>
         <Form className="mt-4" method="post">
           <MapSearchBox />
-          <div className="mt-4 flex gap-x-4">
+          <div className="mt-4 flex gap-4 flex-wrap sm:flex-nowrap">
             <Button
-              className="w-full"
+              className="w-full sm:w-1/2"
               name="route"
               value="incentives"
               type="submit"
@@ -68,7 +68,7 @@ export default function Index() {
               Find Incentives
             </Button>
             <Button
-              className="w-full"
+              className="w-full sm:w-1/2"
               name="route"
               value="potential"
               type="submit"

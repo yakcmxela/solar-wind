@@ -9,8 +9,6 @@ export const PotentialEstimates = () => {
   const { isEstimating, estimatesFound, isEstimationError } =
     useContext(PotentialContext);
 
-  console.log({ isEstimating, estimatesFound, isEstimationError });
-
   useEffect(() => {
     if (!estimatesFound || !containerRef.current) return;
     Chart.register(...registerables);

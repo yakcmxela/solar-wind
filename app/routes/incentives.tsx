@@ -20,23 +20,22 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const zipcode = searchParams.get(AddressPhysicalParts.zipcode) || "";
   const country = searchParams.get(AddressPhysicalParts.country) || "";
 
-  const data: {
-    physicalAddress: AddressPhysical;
-    incentives?: IncentiveCategory[];
-  } = {
-    physicalAddress: { street, city, state, zipcode, country },
+  const physicalAddress: AddressPhysical = {
+    street,
+    city,
+    state,
+    zipcode,
+    country,
   };
+  let incentives: IncentiveCategory[] | undefined;
 
   try {
-    const incentives = await getIncentiveTypes();
-    if (incentives) {
-      data.incentives = incentives;
-    }
+    incentives = await getIncentiveTypes();
   } catch (error) {
     console.error(error);
   }
 
-  return data;
+  return { physicalAddress, incentives };
 }
 
 export default function SearchByLocation() {
