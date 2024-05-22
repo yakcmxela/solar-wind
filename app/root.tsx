@@ -2,6 +2,7 @@ import { Links, Meta, Outlet, Scripts, useLoaderData } from "@remix-run/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { LinksFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import { Analytics } from "@vercel/analytics/react";
 
 import appFonts from "~styles/fonts.css?url";
 import appStyles from "~styles/app.css?url";
@@ -40,11 +41,12 @@ export default function App() {
     <html>
       <head>
         <link rel="icon" href="data:image/x-icon;base64,AA" />
-        <meta name="viewport" content="width=device-width"/>
+        <meta name="viewport" content="width=device-width" />
         <Meta />
         <Links />
       </head>
       <body>
+        <Analytics />
         <QueryClientProvider client={queryClient}>
           <Outlet />
         </QueryClientProvider>

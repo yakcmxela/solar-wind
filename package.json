@@ -26,6 +26,7 @@
     "@turf/turf": "7.0.0-alpha.115",
     "@types/mapbox-gl": "^3.1.0",
     "@types/node": "^20.12.7",
+    "@vercel/analytics": "^1.2.2",
     "ambient-weather-api": "^0.0.6",
     "chart.js": "^4.4.2",
     "cross-env": "^7.0.3",
