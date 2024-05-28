@@ -84,7 +84,6 @@ export default function Index() {
         </Form>
       </div>
       <div className="m-4 mt-auto text-center">
-        <p className="text-sm">An AI driven shopping experience.</p>
         <p className="text-xs text-white">
           Created by{" "}
           <Link
